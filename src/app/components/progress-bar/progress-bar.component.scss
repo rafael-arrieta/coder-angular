@@ -1,0 +1,34 @@
+.progress__container{
+    width: 18rem;
+    height: 4.5rem;
+    background-color: rgb(112, 148, 148);
+    padding: 0.5rem;
+    background-color: rgb(25, 25, 25);
+    border: 1px solid rgb(30,30,30);
+    border-radius: 0.5em;
+    box-shadow: 5px 5px 15px 5px rgba(0, 0, 0, 0.2);
+    background: radial-gradient(circle, rgba(30,30,30,1) 0%, rgba(23,23,23,1) 90%);
+
+}
+.bar__container{
+    border: 1px solid rgb(40,40,40);
+    border-radius: 0.5em;
+}
+.bar__content{
+    height: 1em;
+    width: calc(var(--value)*1%);
+    border-radius: 0.5em;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px -5px 3px 7px rgb(250, 192, 2) inset;
+}
+
+
+h3{
+    font-size: 1rem;
+    padding: 0.7em 0;
+    text-align: center;
+    color: rgb(250, 192, 2); 
+    font-weight: 600;
+    text-shadow: 0px 0px 10px rgba(120, 120, 120, 0.7);
+}
+
