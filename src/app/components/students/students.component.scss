@@ -1,40 +1,10 @@
-
-
-.grid__module__container{
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  padding: 3em;
-  gap: 1rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 3rem 1fr 1fr;
-  grid-template-areas: 
-                      "title title g"
-                      "a b c"
-                      "d e f";
-  justify-items: center;
-  overflow-y: scroll;
-  overflow-x: hidden;
+@font-face {
+    font-family: "galindo";
+    src: url(../../../assets/fonts/Galindo-Regular.ttf);
 }
 
-.courses__data{
-  width: 80%;
-  display: grid;
-  grid-template-rows: 3rem 1fr;
-}
-.courses__data__content{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  justify-items: center;
-  
-}
-
-
-.in__courses{
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  gap: auto;
-
+h1{
+    font-family: 'galindo';
+    font-size: 1.5rem;
+    padding-left: 3rem;
 }

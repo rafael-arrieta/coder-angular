@@ -1,25 +1,41 @@
 <div class="grid__module__container">
-    
-    <app-section-title style="grid-area:title;"></app-section-title>
-
-    <app-card-module style="grid-area: a;"></app-card-module>
-    
-    <div class="in__courses" style="grid-area: b;">
-        <app-progress-bar></app-progress-bar>
-        <app-progress-bar></app-progress-bar>
-        <app-progress-bar></app-progress-bar>
+    <div class="table__title">
+      <h1>Hola Tabla</h1>
     </div>
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Calificaciones</th>
+            <th scope="col">Promedio</th>
+            <th scope="col">TOP 10</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students,let i = index">
+            <th>{{i+1}}</th>
+            <td>{{student.firstName}}</td>
+            <td>{{student.lastName}}</td>
+            <td>{{student.ages}}</td>
+            <td>{{student.dni}}</td>
+            <td [ngStyle]="!student.isTopTen ? {'color':'#FF3B3B'}:{'color':'white'}">
+              {{student.califications.join(' - ')}} - 
+              </td>
+            <td>{{student.average.toFixed(2)}}</td>
+            <td *ngIf = "!student.isTopTen" [ngStyle]="{'color':'#FF3B3B'}"> NO </td>
+            <td *ngIf = "student.isTopTen"> SI </td>
 
-    <app-card-module style="grid-area: d;"></app-card-module>
-    
-    <div class="in__courses" style="grid-area: e;">
-        <app-progress-bar></app-progress-bar>
-        <app-progress-bar></app-progress-bar>
-        <app-progress-bar></app-progress-bar>
-    </div>
-   
-    
-        <h2>Novedades</h2>
-    
-    
+          </tr>
+          
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7"></td>
+            </tr>
+        </tfoot>
+      </table>
 </div>
