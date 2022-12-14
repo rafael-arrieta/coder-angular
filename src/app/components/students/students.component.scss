@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "galindo";
+    src: url(../../../assets/fonts/Galindo-Regular.ttf);
+}
+
+h1{
+    font-family: 'galindo';
+    font-size: 1.5rem;
+    padding-left: 3rem;
+}
+
+.td__footer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.td__pages{
+    width: 2rem;
+    height: 2em;
+    background-color: rgb(30, 30, 30);
+}
+

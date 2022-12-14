@@ -1,0 +1,48 @@
+<div class="grid__module__container">
+    <div class="table__title">
+      <h1>Hola Tabla</h1>
+    </div>
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Edad</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Calificaciones</th>
+            <th scope="col">Promedio</th>
+            <th scope="col">TOP 10</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students,let i = index">
+            <th>{{i+1}}</th>
+            <td>{{student.firstName | titlecase }}</td>
+            <td>{{student.lastName | titlecase }}</td>
+            <td>{{student.ages}}</td>
+            <td>{{student.dni}}</td>
+            <td [ngStyle]="!student.isTopTen ? {'color':'#FF3B3B'}:{'color':'white'}">
+              {{student.califications.join(' - ')}}
+              </td>
+            <td>{{student.average.toFixed(2)}}</td>
+            <td *ngIf = "!student.isTopTen" [ngStyle]="{'color':'#FF3B3B'}"> NO </td>
+            <td *ngIf = "student.isTopTen"> SI </td>
+
+          </tr>
+          
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="8">
+                  <div class="td__footer">
+                    <button class="td__pages"> 1 </button>
+                    <button class="td__pages"> 2 </button>
+                    <button class="td__pages"> 3 </button>
+                    <button class="td__pages"> ... </button>
+                  </div>
+                </td>
+            </tr>
+        </tfoot>
+      </table>
+</div>
