@@ -1,48 +1,73 @@
-<div class="grid__module__container">
-    <div class="table__title">
-      <h1>Hola Tabla</h1>
-    </div>
-    <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Apellido</th>
-            <th scope="col">Edad</th>
-            <th scope="col">DNI</th>
-            <th scope="col">Calificaciones</th>
-            <th scope="col">Promedio</th>
-            <th scope="col">TOP 10</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of students,let i = index">
-            <th>{{i+1}}</th>
-            <td>{{student.firstName | titlecase }}</td>
-            <td>{{student.lastName | titlecase }}</td>
-            <td>{{student.ages}}</td>
-            <td>{{student.dni}}</td>
-            <td [ngStyle]="!student.isTopTen ? {'color':'#FF3B3B'}:{'color':'white'}">
-              {{student.califications.join(' - ')}}
-              </td>
-            <td>{{student.average.toFixed(2)}}</td>
-            <td *ngIf = "!student.isTopTen" [ngStyle]="{'color':'#FF3B3B'}"> NO </td>
-            <td *ngIf = "student.isTopTen"> SI </td>
 
-          </tr>
-          
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="8">
-                  <div class="td__footer">
-                    <button class="td__pages"> 1 </button>
-                    <button class="td__pages"> 2 </button>
-                    <button class="td__pages"> 3 </button>
-                    <button class="td__pages"> ... </button>
-                  </div>
-                </td>
-            </tr>
-        </tfoot>
-      </table>
+<div class="table__students">
+
+    <h1>Lista de alumnos</h1>
+
+    <table mat-table [dataSource]="students | slice:displayVariable:nextDisplayVariable" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let student"> {{student.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstAndLastName">
+            <th mat-header-cell *matHeaderCellDef> Nombre y apellido </th>
+            <td mat-cell *matCellDef="let student"> 
+                {{ { firstName: student.firstName | titlecase , lastName: student.lastName | titlecase } | concatenatePipe:'firstName':'lastName' }} 
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef> DNI </th>
+            <td mat-cell *matCellDef="let student"> {{student.dni | thousandSeparator}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef> Edad </th>
+            <td mat-cell *matCellDef="let student"> {{student.age}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Activo</th>
+            <td mat-cell *matCellDef="let student">
+                <p *ngIf = "!student.active" [ngStyle]="{'color':'#FF3B3B'}"> NO </p>
+                <p *ngIf = "student.active"> SI </p>
+            </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> Editar</th>
+            <td mat-cell *matCellDef="let student">
+             <button mat-icon-button (click)="editStudent(student)"><mat-icon>edit</mat-icon></button>
+            </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let student" >
+                <button mat-icon-button color="accent" (click)="removeStudent(student)"><mat-icon>delete</mat-icon></button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <div class="add__student">
+        <button mat-raised-button color="primary" (click)="addStudent()">
+            Agregar alumno
+            <mat-icon>add_circle</mat-icon> 
+        </button>
+        <button mat-raised-button color="primary" (click)="previusPage()">
+            <mat-icon>arrow_back_ios</mat-icon>  
+            Anterior
+        </button>
+        <button mat-raised-button color="primary" (click)="nextPage()"> 
+            Siguiente 
+            <mat-icon>arrow_forward_ios</mat-icon> 
+        </button>
+    </div>
+
+    <div class="add__student">
+    </div>
+
 </div>

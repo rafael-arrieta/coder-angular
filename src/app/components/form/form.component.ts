@@ -28,6 +28,7 @@ export class FormComponent implements OnInit {
     //Cuando saco el required linea el ageControl da error con  la validacion custom
     //Además en el formulario aparecen 2 lineas de error-helper
     Validators.required, 
+    Validators.pattern('^[0-9]*$'),
     Validators.minLength(2),
     Validators.maxLength(3),
     this.ageRangeValidator

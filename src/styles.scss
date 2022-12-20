@@ -17,7 +17,8 @@
     border: 0;
     box-sizing: border-box;
     vertical-align: baseline;
-
+    scrollbar-width: auto;
+    scrollbar-color: rgb(120,120,120) rgb(201, 201, 201);
 }
 
 img , picture , video , iframe , figure {
@@ -60,11 +61,6 @@ blockquote::before, blockquote::after, q::before, q::after{
     content: none;
 }
 
-::selection{
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-}
-
 form, input, textarea, select, button, label{
     font-family: inherit;
     font-size: inherit;
@@ -72,14 +68,10 @@ form, input, textarea, select, button, label{
     background-color: transparent;
     display: block;
     color: inherit;
-    /*opcional:*/
     appearance: none;
 }
 
-table, tr, td{
-    border-collapse: collapse;
-    border-spacing: 0;
-}
+
 
 svg{
     width: 100%;
@@ -91,25 +83,23 @@ textarea {
     resize: none;
 }
 
+
+html, body { height: 100%; }
+
+
 body{
     min-height: 100vh;
     font-size: 100%;
-    font-family: var(--principal-type);
-    color: var(--color-primary);
-    background-color: var(--color-secondary);
     line-height: 1.4em;
     font-smooth: always;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     font-size: 16px;
+    margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-*{
-    padding: 0;
-    margin: 0;
-    scrollbar-width: auto;
-    scrollbar-color: rgb(120,120,120) rgb(201, 201, 201);
-  }
+
 
   /* Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
@@ -117,9 +107,9 @@ body{
   }
 
   *::-webkit-scrollbar-track {
-    background: rgb(201, 201, 201)
-  }
-
+      background: rgb(201, 201, 201)
+    }
+    
   *::-webkit-scrollbar-thumb {
     background-color: rgb(120,120,120);
     border-radius: 0px;
@@ -156,5 +146,3 @@ body{
         font-size: 12px;
     }
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

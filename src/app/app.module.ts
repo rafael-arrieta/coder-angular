@@ -5,12 +5,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { StudentsComponent } from './components/students/students.component';
-
 import { FormComponent } from './components/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorHelperComponent } from './components/error-helper/error-helper.component';
-import {MatButtonModule} from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './modules/material.module';
+import { DialogStudentComponent } from './components/dialog-student/dialog-student.component';
+import { ConcatenatePipePipe } from './pipes/concatenate-pipe.pipe';
+import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
+
 
 @NgModule({
   declarations: [
@@ -19,13 +22,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToolbarComponent,
     StudentsComponent,
     FormComponent,
-    ErrorHelperComponent
+    ErrorHelperComponent,
+    DialogStudentComponent,
+    ConcatenatePipePipe,
+    ThousandSeparatorPipe,
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

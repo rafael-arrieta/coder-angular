@@ -9,15 +9,21 @@ h1{
     padding-left: 3rem;
 }
 
-.td__footer{
+.mdc-data-table__header-cell{
+    padding-top: 17px;
+}
+
+.add__student{
     width: 100%;
-    display: flex;
-    justify-content: flex-end;
+    height: 4rem;
+    display: grid;
+    grid-template-columns: 8fr 1fr 1fr;
+    padding: 1rem;
+    align-items: center;
+    justify-items: start;
+    gap: 3rem
 }
 
-.td__pages{
-    width: 2rem;
-    height: 2em;
-    background-color: rgb(30, 30, 30);
+.table__students{
+    width: 80%;
 }
-
