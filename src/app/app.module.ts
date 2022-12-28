@@ -13,7 +13,7 @@ import { MaterialModule } from './modules/material.module';
 import { DialogStudentComponent } from './components/dialog-student/dialog-student.component';
 import { ConcatenatePipePipe } from './pipes/concatenate-pipe.pipe';
 import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
-
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -26,14 +26,16 @@ import { ThousandSeparatorPipe } from './pipes/thousand-separator.pipe';
     DialogStudentComponent,
     ConcatenatePipePipe,
     ThousandSeparatorPipe,
+    
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
+    PagesModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
