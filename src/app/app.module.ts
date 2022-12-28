@@ -26,7 +26,6 @@ import { PagesModule } from './pages/pages.module';
     DialogStudentComponent,
     ConcatenatePipePipe,
     ThousandSeparatorPipe,
-    
   ],
   imports: [
     BrowserModule,
