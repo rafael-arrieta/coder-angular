@@ -1,21 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Example1Component } from './components/example1/example1.component';
-import { Example2Component } from './components/example2/example2.component';
-
-
+import { DialogStudentComponent } from './components/dialog-student/dialog-student.component';
+import { ErrorHelperComponent } from './components/error-helper/error-helper.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { ToolbarComponent } from './layout/toolbar/toolbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from '../modules/material.module';
+import { RouterModule} from '@angular/router';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    Example1Component,
-    Example2Component,
+    DialogStudentComponent,
+    ErrorHelperComponent,
+    NavbarComponent,
+    ToolbarComponent,
+    NotFoundComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    RouterModule,
   ],
   exports: [
-    Example1Component,
-    Example2Component,
-  ]
+    DialogStudentComponent,
+    ErrorHelperComponent,
+    NavbarComponent,
+    ToolbarComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

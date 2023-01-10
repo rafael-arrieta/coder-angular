@@ -1,18 +1,34 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WordChangerComponent } from './word-changer/word-changer.component';
-import { SharedModule } from '../shared/shared.module';
+import { StudentsComponent } from './students/students.component';
+import { MaterialModule } from '../modules/material.module';
+import { ThousandSeparatorPipe } from '../pipes/thousand-separator.pipe';
+import { ConcatenatePipePipe } from '../pipes/concatenate-pipe.pipe';
+import { CoursesComponent } from './courses/courses.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+import { StudentDetailComponent } from './student-detail/student-detail.component';
+import { RouterModule } from '@angular/router';
+
+
 
 @NgModule({
   declarations: [
-    WordChangerComponent, 
+    StudentsComponent,
+    ThousandSeparatorPipe,
+    ConcatenatePipePipe,
+    CoursesComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
+    StudentDetailComponent,
   ],
   imports: [
-    CommonModule, 
-    SharedModule
+    CommonModule,
+    RouterModule,
+    MaterialModule,
   ],
   exports: [
-    WordChangerComponent, 
-  ],
+    StudentsComponent
+  ]
 })
-export class PagesModule {}
+export class PagesModule { }
