@@ -7,8 +7,18 @@ import { RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
-  declarations: [DashboardLayoutComponent, AuthComponent],
-  imports: [CommonModule, SharedModule, PagesModule, RouterModule],
-  exports: [DashboardLayoutComponent, AuthComponent],
+  declarations: [
+    DashboardLayoutComponent, 
+    AuthComponent
+  ],
+  imports: [
+    CommonModule, 
+    SharedModule, 
+    PagesModule, 
+    RouterModule],
+  exports: [
+    DashboardLayoutComponent, 
+    AuthComponent
+  ],
 })
 export class LayoutsModule {}

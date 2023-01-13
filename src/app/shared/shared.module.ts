@@ -16,7 +16,6 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     ErrorHelperComponent,
     NavbarComponent,
     ToolbarComponent,
-    NotFoundComponent,
   ],
   imports: [
     CommonModule,

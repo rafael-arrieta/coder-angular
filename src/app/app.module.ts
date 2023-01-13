@@ -5,10 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthComponent } from './layouts/auth/auth.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   providers: [],
   bootstrap: [AppComponent],
   imports: [
@@ -16,6 +18,8 @@ import { AuthComponent } from './layouts/auth/auth.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
+    LayoutsModule
   ],
 })
 export class AppModule {}

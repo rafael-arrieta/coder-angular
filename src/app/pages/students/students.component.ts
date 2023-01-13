@@ -1,64 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Student } from 'src/app/models/student.model';
-import { DialogStudentComponent } from '../../shared/components/dialog-student/dialog-student.component';
+import { Component, OnDestroy, OnInit } from '@angular/core'; // ok
+import { MatDialog } from '@angular/material/dialog'; // ok
+import { Student } from 'src/app/models/student.model'; // ok
+import { DialogStudentComponent } from '../../shared/components/dialog-student/dialog-student.component'; // ok
+import { Observable, Subject } from 'rxjs';
+import { StudentsService } from 'src/app/services/students.service';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss'],
 })
-export class StudentsComponent implements OnInit {
-  students: Student[] = [
-    new Student('carlos', 'bolsonaro', '32', '33355354', 1, true),
-    new Student('Macarena', 'higUain', '21', '40378426', 2, false),
-    new Student('julian', 'abregovich', '18', '44123462', 3, true),
-    new Student('tobias', 'SaNchez', '22', '42365432', 4, true),
-    new Student('Camila', 'perez', '26', '39454664', 5, false),
-    new Student('Leandro', 'Tornelo', '42', '28164579', 6, false),
-  ];
 
-  constructor(private readonly dialogService: MatDialog) {}
-
-  ngOnInit(): void {}
-
+export class StudentsComponent implements OnDestroy{
   displayedColumns = [
-    'id',
-    'firstAndLastName',
-    'dni',
-    'age',
-    'active',
-    'edit',
-    'delete',
+    'id','firstName','lastName','dni','age','active','detalle','edit','delete',
   ];
 
-  displayVariable: number = 0;
-  nextDisplayVariable: number = this.displayVariable + 10;
+  students: Observable<Student[]>;
 
-  addStudent() {
-    const dialog = this.dialogService.open(DialogStudentComponent);
+  private destroyed$ = new Subject()
 
-    dialog.afterClosed().subscribe((value) => {
-      if (value) {
-        const lastId = this.students[this.students.length - 1]?.id;
+  constructor(
+    private readonly studentsService: StudentsService,
+    private readonly dialogService: MatDialog)
 
-        this.students = [
-          ...this.students,
-          new Student(
-            value.firstName,
-            value.lastName,
-            value.age,
-            value.dni,
-            lastId + 1,
-            true
-          ),
-        ];
-      }
-    });
-  }
+    {
+      this.students = this.studentsService.students$;
+    }
 
-  removeStudent(element: Student) {
-    this.students = this.students.filter((std) => std.id !== element.id);
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
   }
 
   editStudent(student: Student) {
@@ -68,24 +39,50 @@ export class StudentsComponent implements OnInit {
 
     dialog.afterClosed().subscribe((data) => {
       if (data) {
-        this.students = this.students.map((std) =>
-          std.id === student.id ? { ...std, ...data } : std
-        );
+        this.studentsService.editStudent(student.id, data);
+      }
+    });
+  }
+  //falta el método editar estudiante del "student.serveice.ts"
+
+  displayVariable: number = 0;
+  nextDisplayVariable: number = this.displayVariable + 10;
+
+  addStudent(){
+    const dialog = this.dialogService.open(DialogStudentComponent);
+    dialog.afterClosed().subscribe((data) => {
+      if(data){
+        this.studentsService.addStudent({
+          firstName: data.firstName,
+          lastName: data.lastName,
+          age: data.age,
+          dni: data.dni
+        })
       }
     });
   }
 
+
+
+  deleteStudent(element: Student) {
+    this.studentsService.deleteStudent(element.id);
+  }
+
+  detailStudent(element: Student){
+    //console.log(this.studentsService.getStudentById(element.id));
+  }
+
   nextPage() {
-    if (this.students.length >= this.nextDisplayVariable) {
-      this.displayVariable = this.displayVariable + 10;
-      this.nextDisplayVariable = this.displayVariable + 10;
-    }
+    // if (StudentsService.length >= this.nextDisplayVariable) {
+    //   this.displayVariable = this.displayVariable + 10;
+    //   this.nextDisplayVariable = this.displayVariable + 10;
+    // }
   }
 
   previusPage() {
-    if (this.displayVariable !== 0) {
-      this.displayVariable = this.displayVariable - 10;
-      this.nextDisplayVariable = this.displayVariable + 10;
-    }
+    // if (this.displayVariable !== 0) {
+    //   this.displayVariable = this.displayVariable - 10;
+    //   this.nextDisplayVariable = this.displayVariable + 10;
+    // }
   }
 }

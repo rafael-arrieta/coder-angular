@@ -28,7 +28,11 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
   ],
   exports: [
-    StudentsComponent
+    StudentsComponent,
+    StudentDetailComponent,
+    CoursesComponent,
+    LoginPageComponent,
+    RegisterPageComponent,
   ]
 })
 export class PagesModule { }
