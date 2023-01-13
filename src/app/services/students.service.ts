@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, take, map } from 'rxjs';
 })
 export class StudentsService {
 
-  private students  = new BehaviorSubject<Student[]>(
+  private students  = new BehaviorSubject<Student[]> (
   [
     new Student('carlos', 'bolsonaro', '32', '33355354', 1, true),
     new Student('Macarena', 'higUain', '21', '40378426', 2, false),
@@ -15,9 +15,15 @@ export class StudentsService {
     new Student('tobias', 'SaNchez', '22', '42365432', 4, true),
     new Student('Camila', 'perez', '26', '39454664', 5, false),
     new Student('Leandro', 'Tornelo', '42', '28164579', 6, false),
+    new Student('carlos', 'bolsonaro', '32', '33355354', 7, true),
+    new Student('Macarena', 'higUain', '21', '40378426', 8, false),
+    new Student('julian', 'abregovich', '18', '44123462', 9, true),
+    new Student('tobias', 'SaNchez', '22', '42365432', 10, true),
+    new Student('Camila', 'perez', '26', '39454664', 11, false),
   ]);
 
   public students$: Observable<Student[]>
+
 
   constructor() {
     this.students$ = this.students.asObservable() 
@@ -71,7 +77,7 @@ export class StudentsService {
       map((students)=>students.find((std) => std.id === id) || null)
     )
   }
-
+  
 
   /*
   getStudentsFromAPI():Observable<Student[]> {

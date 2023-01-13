@@ -13,7 +13,7 @@ import { StudentsService } from 'src/app/services/students.service';
 
 export class StudentsComponent implements OnDestroy{
   displayedColumns = [
-    'id','firstName','lastName','dni','age','active','detalle','edit','delete',
+    'id','firstAndLastName','dni','age','active','detail','edit','delete',
   ];
 
   students: Observable<Student[]>;
@@ -26,6 +26,9 @@ export class StudentsComponent implements OnDestroy{
 
     {
       this.students = this.studentsService.students$;
+
+      //console.log(this.studentsService.students$.pipe());
+      
     }
 
   ngOnDestroy(): void {
@@ -73,7 +76,7 @@ export class StudentsComponent implements OnDestroy{
   }
 
   nextPage() {
-    // if (StudentsService.length >= this.nextDisplayVariable) {
+    // if ( >= this.nextDisplayVariable) {
     //   this.displayVariable = this.displayVariable + 10;
     //   this.nextDisplayVariable = this.displayVariable + 10;
     // }
