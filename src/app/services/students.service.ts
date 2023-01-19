@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Student } from '../models/student.model';
-import { BehaviorSubject, Observable, take, map } from 'rxjs';
+import { BehaviorSubject, Observable, take, map, catchError,throwError } from 'rxjs';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,44 +9,65 @@ import { BehaviorSubject, Observable, take, map } from 'rxjs';
 export class StudentsService {
 
   private students  = new BehaviorSubject<Student[]> (
-  [
-    new Student('carlos', 'bolsonaro', '32', '33355354', 1, true),
-    new Student('Macarena', 'higUain', '21', '40378426', 2, false),
-    new Student('julian', 'abregovich', '18', '44123462', 3, true),
-    new Student('tobias', 'SaNchez', '22', '42365432', 4, true),
-    new Student('Camila', 'perez', '26', '39454664', 5, false),
-    new Student('Leandro', 'Tornelo', '42', '28164579', 6, false),
-    new Student('carlos', 'bolsonaro', '32', '33355354', 7, true),
-    new Student('Macarena', 'higUain', '21', '40378426', 8, false),
-    new Student('julian', 'abregovich', '18', '44123462', 9, true),
-    new Student('tobias', 'SaNchez', '22', '42365432', 10, true),
-    new Student('Camila', 'perez', '26', '39454664', 11, false),
-  ]);
+  []);
 
   public students$: Observable<Student[]>
 
 
-  constructor() {
+  constructor(
+    private httpClient: HttpClient,
+
+  ) {
     this.students$ = this.students.asObservable() 
-  }
-
-  addStudent(newStudentData: Omit<Student, 'id' | 'active'>): void {
-    this.students.pipe(take(1)).subscribe((students)=>{
-
-      const lastId = students[students.length - 1]?.id||0;
-
-      this.students.next([
-        ...students,
-        new Student(
-          newStudentData.firstName, 
-          newStudentData.lastName, 
-          newStudentData.age,
-          newStudentData.dni,
-          lastId + 1,true),
-      ])
+    this.getStudentsFromAPI().subscribe(stud => {
+      this.students.next(stud);
     })
   }
 
+  // addStudent(newStudentData: Omit<Student, 'id' | 'active'>): void {
+
+  //   this.students.pipe(take(1)).subscribe((students)=>{
+
+  //     const lastId = students[students.length - 1]?.id||0;
+
+  //     this.students.next([
+  //       ...students,
+  //       new Student(
+  //         newStudentData.firstName, 
+  //         newStudentData.lastName, 
+  //         newStudentData.age,
+  //         newStudentData.dni,
+  //         lastId + 1,true),
+  //     ])
+  //   })
+  // }
+
+  addStudent(student: Omit<Student, 'id' | 'active'>) {
+    this.httpClient.post(`https://63bdfb6f585bedcb36a57d1e.mockapi.io/students`, student).subscribe({
+      next: _ => {
+        let newList = this.students.getValue();
+        let lastId = newList[newList.length]?.id||0;
+        lastId.toString
+
+        newList.push(student);
+        this.students.next([
+          ...newList,
+          new Student(
+            lastId,
+            student.firstName,
+            student.lastName, 
+            student.age,
+            student.dni,
+            true),
+          ]
+        );
+      },
+      error: _ => {
+        alert('Error!!');
+      }
+    });
+  }
+  
   editStudent(id: number, data: Partial<Student>): void {
     this,this.students.pipe(take(1)).subscribe((students)=>{
       this.students.next(
@@ -65,10 +87,11 @@ export class StudentsService {
     })
   }
 
-  deleteStudent(id: number): void {
-    this.students.pipe(take(1)).subscribe((students)=>{
-      this.students.next(students.filter((std)=> std.id !== id))
-    })
+  deleteStudent(student: Student) {
+    this.httpClient.delete<Student[]>(`https://63bdfb6f585bedcb36a57d1e.mockapi.io/students/${student.id}`).subscribe(_=> {
+      let newList = this.students.getValue().filter( std => std.id !== student.id);
+      this.students.next(newList);
+    });
   }
 
   getStudentById(id: number): Observable<Student | null> {
@@ -79,11 +102,15 @@ export class StudentsService {
   }
   
 
-  /*
+  
   getStudentsFromAPI():Observable<Student[]> {
-    return this.httpClient.get<Student[]>()
+    return this.httpClient.get<Student[]>('https://63bdfb6f585bedcb36a57d1e.mockapi.io/students',
+    {
+      headers : new HttpHeaders ({
+        'content-type' : 'application/json'
+      })
+    }).pipe(catchError(err => throwError(() => new Error('Error!'))));
   }
-  */
 }
 
 

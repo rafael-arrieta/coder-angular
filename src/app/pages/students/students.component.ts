@@ -67,8 +67,8 @@ export class StudentsComponent implements OnDestroy{
 
 
 
-  deleteStudent(element: Student) {
-    this.studentsService.deleteStudent(element.id);
+  deleteStudent(student: Student) {
+    this.studentsService.deleteStudent(student);
   }
 
   detailStudent(element: Student){
