@@ -42,32 +42,46 @@ export class StudentsService {
   //   })
   // }
 
+  // addStudent(student: Omit<Student, 'id' | 'active'>) {
+  //   this.httpClient.post(`https://63bdfb6f585bedcb36a57d1e.mockapi.io/students`, student).subscribe({
+  //     next: _ => {
+  //       let newList = this.students.getValue();
+  //       let lastId = newList[newList.length]?.id||0;
+  //       lastId.toString
+
+  //       newList.push(student);
+  //       this.students.next([
+  //         ...newList,
+  //         new Student(
+  //           lastId,
+  //           student.firstName,
+  //           student.lastName, 
+  //           student.age,
+  //           student.dni,
+  //           true),
+  //         ]
+  //       );
+  //     },
+  //     error: _ => {
+  //       alert('Error!!');
+  //     }
+  //   });
+  // }
+  
   addStudent(student: Omit<Student, 'id' | 'active'>) {
     this.httpClient.post(`https://63bdfb6f585bedcb36a57d1e.mockapi.io/students`, student).subscribe({
       next: _ => {
         let newList = this.students.getValue();
-        let lastId = newList[newList.length]?.id||0;
-        lastId.toString
-
-        newList.push(student);
-        this.students.next([
-          ...newList,
-          new Student(
-            lastId,
-            student.firstName,
-            student.lastName, 
-            student.age,
-            student.dni,
-            true),
-          ]
-        );
+        let lastId = newList[newList.length-1]?.id||0;
+        newList.push(new Student(((lastId+1).toString()), student.firstName, student.lastName, student.age, Number(student.dni), true));
+        this.students.next(newList);
       },
       error: _ => {
         alert('Error!!');
       }
     });
   }
-  
+
   editStudent(id: number, data: Partial<Student>): void {
     this,this.students.pipe(take(1)).subscribe((students)=>{
       this.students.next(
